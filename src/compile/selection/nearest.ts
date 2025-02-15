@@ -1,5 +1,5 @@
 import * as log from '../../log';
-import {isPathMark} from '../../mark';
+import {supportNearestTransform} from '../../mark';
 import {tooltip} from '../mark/encode';
 import {SelectionCompiler} from '.';
 
@@ -23,7 +23,7 @@ const nearest: SelectionCompiler<'point'> = {
   marks: (model, selCmpt, marks) => {
     const {x, y} = selCmpt.project.hasChannel;
     const markType = model.mark;
-    if (isPathMark(markType)) {
+    if (!supportNearestTransform(markType)) {
       log.warn(log.message.nearestNotSupportForContinuous(markType));
       return marks;
     }

@@ -47,12 +47,16 @@ export function isMark(m: string): m is Mark {
   return hasOwnProperty(Mark, m);
 }
 
-export const PATH_MARKS = ['line', 'area', 'trail'] as const;
+export const PATH_MARKS = ['line', 'area', 'trail', 'rule'] as const;
 
 export type PathMark = (typeof PATH_MARKS)[number];
 
 export function isPathMark(m: Mark | CompositeMark): m is PathMark {
-  return ['line', 'area', 'trail'].includes(m);
+  return ['line', 'area', 'trail', 'rule'].includes(m);
+}
+
+export function supportNearestTransform(m: Mark | CompositeMark): m is PathMark {
+  return !['line', 'area', 'trail'].includes(m);
 }
 
 export function isRectBasedMark(m: Mark | CompositeMark): m is 'rect' | 'bar' | 'image' | 'arc' | 'tick' {

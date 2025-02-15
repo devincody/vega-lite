@@ -422,6 +422,26 @@ describe('Mark', () => {
       });
     });
 
+    it("should order by x's custom sort order by default if mark is rule", () => {
+      const model = parseUnitModelWithScale({
+        data: {url: 'data/cars.json'},
+        mark: 'rule',
+        encoding: {
+          x: {
+            type: 'ordinal',
+            field: 'origin1',
+            sort: ['Europe', 'Japan', 'USA']
+          },
+          x2: {field: 'origin2'},
+          y: {type: 'quantitative', field: 'hp1'},
+          y2: {field: 'hp2'}
+        }
+      });
+      expect(getSort(model)).toEqual({
+        field: 'x'
+      });
+    });
+
     it('should order by the right channel when sort by encoding', () => {
       const model = parseUnitModelWithScale({
         data: {url: 'data/movies.json'},
